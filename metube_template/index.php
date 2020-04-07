@@ -19,12 +19,12 @@ if(isset($_POST['submit'])) {
 			else if($check==0){
 				$_SESSION['username']=$_POST['username']; //Set the $_SESSION['username']
 				header('Location: browse.php');
-			}		
+			}
 		}
 }
 
 
- 
+
 ?>
 	<form method="post" action="<?php echo "index.php"; ?>">
 
@@ -38,8 +38,8 @@ if(isset($_POST['submit'])) {
 			<td width="80%"><input class="text"  type="password" name="password"><br /></td>
 		</tr>
 		<tr>
-        
-			<td><input name="submit" type="submit" value="Login"><input name="reset" type="reset" value="Reset"><br /></td>
+
+			<td><input name="submit" type="submit" value="Login"><input name="reset" type="reset" value="Reset"><input name="signup" type="submit" value="Sign Up" href= "signup.php"<br /></td>
 		</tr>
 	</table>
 	</form>
