@@ -1,4 +1,5 @@
 <?php
+Session_save_path('/home/mfetch/public_html/metube/');
 session_start();
 include_once "function.php";
 
@@ -19,12 +20,12 @@ if(!file_exists($dirfile))
 	mkdir($dirfile, 0744);
 
 
-	if($_FILES["file"]["error"] > 0 )
+	if($result = $_FILES["file"]["error"] > 0 )
 	{ $result=$_FILES["file"]["error"];} //error from 1-4
 	else
 	{
 	  $upfile = $dirfile.urlencode($_FILES["file"]["name"]);
-	  
+
 	  if(file_exists($upfile))
 	  {
 	  		$result="5"; //The file has been uploaded.
@@ -45,7 +46,7 @@ if(!file_exists($dirfile))
 					$queryresult = mysql_query($insert)
 						  or die("Insert into Media error in media_upload_process.php " .mysql_error());
 					$result="0";
-					
+
 					$mediaid = mysql_insert_id();
 					//insert into upload table
 					$insertUpload="insert into upload(uploadid,username,mediaid) values(NULL,'$username','$mediaid')";
@@ -53,13 +54,13 @@ if(!file_exists($dirfile))
 						  or die("Insert into view error in media_upload_process.php " .mysql_error());
 				}
 			}
-			else  
+			else
 			{
 					$result="7"; //upload file failed
 			}
 		}
 	}
-	
+
 	//You can process the error code of the $result here.
 ?>
 
