@@ -89,7 +89,18 @@ body{
          Add a Media: <label style="color:#663399"><em> (Each file limit 10M)</em></label><br/>
          <input  name="file" type="file" size="50" />
 
-      	<input value="Upload" name="submit" type="submit"/>
+         <tr>
+           <td  width="20%">Add up to three keyword tags:</td><br>
+           <td width="80%"><input class="text"  type="text" name="tag1"><br /></td>
+         </tr>
+         <tr>
+           <td width="80%"><input class="text"  type="text" name="tag2"><br /></td>
+         </tr>
+         <tr>
+           <td width="80%"><input class="text"  type="text" name="tag3"><br /></td>
+         </tr>
+         <tr>
+        <input value="Upload" name="submit" type="submit"/>
         </p>
 
 

@@ -64,7 +64,16 @@ body{
 		font-family:verdana;
 		font-size:16px;
 		margin-top: 30px;
-		margin-left: 37%;
+		margin-left: 55%;
+}
+#form2{
+		height:45px;
+		width:55%;
+		top:70px;
+		font-family:verdana;
+		font-size:16px;
+		margin-top: -50px;
+		margin-left: 5%;
 }
 </style>
 </head>
@@ -110,6 +119,7 @@ body{
 ?>
 </div>
 <br/><br/>
+
 <?php
 
 
@@ -120,7 +130,8 @@ body{
 	   die ("Could not query the media table in the database: <br />". mysql_error());
 	}
 ?>
-
+<div id="form1" class="login">
+	<form action="" method="post">
     <div style="background:#339900;color:#FFFFFF; width:150px;">Uploaded Media</div>
 	<table width="50%" cellpadding="0" cellspacing="0">
 		<?php
@@ -144,6 +155,55 @@ body{
 			}
 		?>
 	</table>
+</form>
+</div>
+<div id="form2" class="login">
+	<form action="" method="post">
+    <div style="background:#339900;color:#FFFFFF; width:150px;">Search for Media</div><br>
+	<table width="50%" cellpadding="0" cellspacing="0">
+		<form class="search">
+		  <input class="search" type="text" placeholder="Search"
+		    aria-label="Search" name="search">
+			<input type="submit" name="submit" value="Search">
+			<?php
+				if(isset($_POST['submit'])){
+					$search_word = $_POST['search'];
+					$query = "select mediaid from media_tags where tag = '$search_word'";
+					$mediaid_list = mysql_query($query);
+					while ($mediaid_row = mysql_fetch_row($mediaid_list)){
+						?>
+						<tr valign="top">
+					<td>
+						<?php
+						//	echo $mediaid_row[0];
+							$test = $mediaid_row[0];
+							$query2 = "select * from media where mediaid = '$test'";
+							$result = mysql_query($query2);
+							$result_row = mysql_fetch_array($result);
+							//if(!($result_row = mysql_query($query2))){
+								//echo "query fucked";
+							//}else{
+								//echo "shit wasn't query";
+							//}
+							echo $result_row[0];
+							//echo $resultrow;
+							?>
+					</td>
+		            <td>
+		            	<a href="media.php?id=<?php echo $result_row[0];?>" target="_blank"><?php echo $result_row[1];?></a>
+		            </td>
+		            <td>
+		            	<a href="<?php echo $result_row[2].$result_row[1];?>" target="_blank" onclick="javascript:saveDownload(<?php echo $result_row[0];?>);">Download</a>
+		            </td>
+				</tr>
+		        <?php
+					}
+				}
+					?>
+		</form>
 
+	</table>
+</form>
+</div>
 </body>
 </html>
