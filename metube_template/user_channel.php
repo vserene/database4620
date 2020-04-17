@@ -14,9 +14,9 @@
 		background-color: #D0D0D0;
 	}
 	.logo{
-			height: 40px;
-			padding-top: 2px;
-			padding-right: 2px;
+		height: 40px;
+		padding-top: 2px;
+		padding-right: 2px;
 	}
 	/* Remove the navbar's default margin-bottom and rounded borders */
 	.navbar {
@@ -35,16 +35,28 @@
 		background-color: #454955;
 		height: 100%;
 	}
+
+	#form{
+		width:50%;
+		top:70px;
+		font-family:verdana;
+		font-size:16px;
+		padding-top: 30px;
+		padding-left: 3%;
+		padding-right: 1%;
+		float:left;
+	}
+
 	</style>
 </head>
 <?php
-session_save_path(getcwd() . '/');
-session_start();
+	session_save_path(getcwd() . '/');
+	session_start();
 
-include_once "function.php";
+	include_once "function.php";
 
 
-$username = $_SESSION['username'];
+	$username = $_SESSION['username'];
 
 
 ?>
@@ -77,3 +89,14 @@ $username = $_SESSION['username'];
 		</div>
 	</div>
 </nav>
+<body>
+	<div id="form">
+		<div style="background:#339900;color:#FFFFFF; width:150px;">My Lists:</div><br>
+		<a href="user_channel.php">My Uploads</a><br>
+		<a href="user_channel.php">Favorites</a><br>
+		<br><a href="add_playlist.php">+ New Playlist</a>
+	</div>
+	<div id="form">
+		<div style="background:#339900;color:#FFFFFF; width:150px;">Selected Media:</div><br>
+	</div>
+</body>
