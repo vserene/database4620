@@ -1,5 +1,5 @@
 <?php
-Session_save_path('/home/mfetch/public_html/metube/');
+session_save_path(getcwd() . '/');
 session_start();
 include_once "function.php";
 

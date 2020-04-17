@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?php
-	session_save_path('/home/mfetch/public_html/metube/');
+	session_save_path(getcwd() . '/');
 	session_start();
 	include_once "function.php";
 	include_once 'mysqlClass.inc.php';
@@ -119,20 +119,41 @@ body{
 ?>
 </div>
 <br/><br/>
-
 <?php
-
-
+/**
 	$query = "SELECT * from media";
 	$result = mysql_query( $query );
 	if (!$result)
 	{
 	   die ("Could not query the media table in the database: <br />". mysql_error());
 	}
+**/
 ?>
 <div id="form1" class="login">
 	<form action="" method="post">
     <div style="background:#339900;color:#FFFFFF; width:150px;">Uploaded Media</div>
+    <p><a href="browse.php?cat=all">All</a>&nbsp|&nbsp<a href="browse.php?cat=video">Videos</a>&nbsp|&nbsp<a href="browse.php?cat=image">Images</a></p>
+    <?php
+    	$query = "SELECT * FROM media";
+
+    	if(isset($_GET['cat']))
+    	{
+    		if($_GET['cat'] == "video")
+    		{
+    			$query = "SELECT * FROM media WHERE type = 'video/x-ms-wmv'";
+    		}
+    		else if($_GET['cat'] == "image")
+    		{
+    			$query = "SELECT * FROM media WHERE type = 'image/jpeg' OR type = 'image/png'";
+    		}
+    	}
+
+    	$result = mysql_query( $query );
+    	if (!$result)
+    	{
+    	   die ("Could not query the media table in the database: <br />". mysql_error());
+    	}
+    ?>
 	<table width="50%" cellpadding="0" cellspacing="0">
 		<?php
 			while ($result_row = mysql_fetch_row($result))
@@ -165,6 +186,7 @@ body{
 		  <input class="search" type="text" placeholder="Search"
 		    aria-label="Search" name="search">
 			<input type="submit" name="submit" value="Search">
+			<br /><br />
 			<?php
 				if(isset($_POST['submit'])){
 					$search_word = $_POST['search'];
