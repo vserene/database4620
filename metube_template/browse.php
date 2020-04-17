@@ -94,6 +94,7 @@ body{
       <ul class="nav navbar-nav">
         <li><a href="browse.php">Home</a></li>
         <li><a href="media_upload.php">Upload</a></li>
+        <li><a href="user_channel.php">My Channel</a></li>
         <!--<li><a href="#">Help</a></li>-->
       </ul>
       <ul class="nav navbar-nav navbar-right">
