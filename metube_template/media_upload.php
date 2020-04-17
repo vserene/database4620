@@ -72,6 +72,8 @@ body{
         <!--<li><a href="#">Help</a></li>-->
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="contact_list.php">Contact List</a></li>
+        <li><a href="message.php">Messaging</a><li>
         <li><a href="update_user.php">My Account</a></li>
         <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
