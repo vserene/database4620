@@ -64,6 +64,14 @@ if(isset($_POST['submit'])) {
 				$query = "SELECT id FROM account WHERE username = '$_SESSION[username]'";
 				if($result = mysql_query($query)){
 					//more creation can be added here
+					$user_row = mysql_fetch_assoc($result);
+					$user = $user_row['id'];
+
+					//creating an uploads and favorites playlist for the user
+					$pquery = "INSERT INTO playlists (user_id, name) VALUES ('$user', 'My Uploads')";
+					mysql_query($pquery);
+					$pquery = "INSERT INTO playlists (user_id, name) VALUES ('$user', 'Favorites')";
+					mysql_query($pquery);
 				}else{
 					$signup_error = "error";
 				}

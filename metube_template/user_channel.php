@@ -58,6 +58,23 @@
 
 	$username = $_SESSION['username'];
 
+	$result = mysql_query("SELECT * FROM account WHERE username = '$username'");
+	$user = mysql_fetch_assoc($result);
+
+	if(isset($_POST['add-playlist']))
+	{
+		$pname = $_POST['add-playlist'];
+
+
+		if (str_replace(' ', '', $pname) != "")
+		{
+			$pname = $_POST['add-playlist'];
+			$userid = $user['id'];
+			$addresult = mysql_query("INSERT INTO playlists (user_id, name) VALUES ('$userid', '$pname')");
+		}
+
+		header("Location: user_channel.php");
+	}
 
 ?>
 <nav class="navbar navbar-inverse">
@@ -92,9 +109,19 @@
 <body>
 	<div id="form">
 		<div style="background:#339900;color:#FFFFFF; width:150px;">My Lists:</div><br>
-		<a href="user_channel.php">My Uploads</a><br>
-		<a href="user_channel.php">Favorites</a><br>
-		<br><a href="add_playlist.php">+ New Playlist</a>
+		<form action="user_channel.php" method="post">
+			<input type="text" placeholder="Playlist Name" name="add-playlist">
+			<input type="submit" value="Add">
+		</form>
+		<?php
+			$userid = $user['id'];
+			$list_result = mysql_query("SELECT * FROM playlists WHERE user_id = '$userid'");
+			while ($row = mysql_fetch_assoc($list_result))
+			{
+				$list_name = $row['name'];
+				echo "<a href='user_channel.php'>$list_name</a><br>";
+			}
+		?>
 	</div>
 	<div id="form">
 		<div style="background:#339900;color:#FFFFFF; width:150px;">Selected Media:</div><br>
