@@ -16,3 +16,11 @@ $insertDownload="insert into download(downloadid,username,mediaid) values(NULL,'
 $queryresult = mysql_query($insertDownload)
 
 ?>
+
+$query = "SELECT * FROM media WHERE mediaid='".$_GET['id']."'";
+$result = mysql_query( $query );
+$result_row = mysql_fetch_row($result);
+$filepath=$result_row[2];
+$filename=$result_row[1];
+
+<a href='<?php echo $filepath.$filename; ?>' download='$filename'></a>
