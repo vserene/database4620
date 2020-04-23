@@ -16,8 +16,3 @@ $insertDownload="insert into download(downloadid,username,mediaid) values(NULL,'
 $queryresult = mysql_query($insertDownload)
 
 ?>
-
-let fileapth=<?php echo $filepath.$filename; ?>; 
-
-<!-- window.open(canvas.toDataURL('<?php echo $filepath.$filename; ?>')); -->
-<form method="get" action="$filepath"></form>
