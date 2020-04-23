@@ -76,6 +76,56 @@
 		header("Location: user_channel.php");
 	}
 
+	if (isset($_GET['del']))
+	{
+		$pid = $_GET['del'];
+		$query = "DELETE FROM playlists WHERE id = '$pid'";
+		$result = mysql_query($query);
+		if ($result)
+		{
+			header("Location: user_channel.php");
+		}
+		else
+		{
+			die();
+		}
+	}
+
+	$media_output = "";
+
+	if (isset($_GET['show']))
+	{
+		$pid = $_GET['show'];
+
+		$pquery = "SELECT * FROM playlists WHERE id = '$pid'";
+		$presult = mysql_query($pquery);
+		$playlist = mysql_fetch_assoc($presult);
+
+		if ($playlist['name'] == 'My Uploads')
+		{
+			$media_query = "SELECT * FROM upload WHERE username = '$username'";
+			$media_result = mysql_query($media_query);
+
+			$media_output = "<p>" . $playlist['name'] . "</p>";
+
+			if ($media_result)
+			{
+				$media_output .= "<table style='width:75%'>";
+
+				while($upload = mysql_fetch_assoc($media_result))
+				{
+					$media_query = mysql_query("SELECT * FROM media WHERE mediaid = '" . $upload['mediaid'] . "'");
+					$media = mysql_fetch_assoc($media_query);
+					$media_output .= "<tr>"
+					. "<td><a href='user_channel.php?show=$pid'>" . $media['filename'] . "</a></td>"
+					. "</tr>";
+				}
+
+				$media_output .= "</table>";
+			}
+		}
+	}
+
 ?>
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
@@ -113,17 +163,29 @@
 			<input type="text" placeholder="Playlist Name" name="add-playlist">
 			<input type="submit" value="Add">
 		</form>
+		<table style='width:75%'>
 		<?php
 			$userid = $user['id'];
 			$list_result = mysql_query("SELECT * FROM playlists WHERE user_id = '$userid'");
 			while ($row = mysql_fetch_assoc($list_result))
 			{
+				echo "<tr>";
 				$list_name = $row['name'];
-				echo "<a href='user_channel.php'>$list_name</a><br>";
+				$list_id = $row['id'];
+				echo "<td><a href='user_channel.php?show=$list_id'>$list_name</a></td>";
+				if (!($list_name == 'My Uploads' || $list_name == 'Favorites'))
+				{
+					echo "<td><a href='user_channel.php?del=$list_id'>Delete</a></td>";
+				}
+				echo "</tr>";
 			}
 		?>
+		</table>
 	</div>
 	<div id="form">
 		<div style="background:#339900;color:#FFFFFF; width:150px;">Selected Media:</div><br>
+		<?php
+			echo $media_output;
+		?>
 	</div>
 </body>
