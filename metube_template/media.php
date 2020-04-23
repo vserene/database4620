@@ -106,20 +106,10 @@ if(isset($_GET['id'])) {
 ?>
 	<p>Viewing Video:<?php echo $result_row[2].$result_row[1];?></p>
 
-    <object id="MediaPlayer" width=320 height=286 classid="CLSID:22D6f312-B0F6-11D0-94AB-0080C74C7E95" standby="Loading Windows Media Player components…" type="application/x-oleobject" codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112">
-
-<param name="filename" value="<?php echo $result_row[2].$result_row[1];  ?>">
-<param name="Showcontrols" value="True">
-<param name="autoStart" value="True">
-
-<embed type="application/x-mplayer2" src="<?php echo $result_row[2].$result_row[1];  ?>" name="MediaPlayer" width=320 height=240></embed>
-
-</object>
-
-
-
-
-
+    <video controls width="720"> 
+		<source src="<?php echo $filepath.$filename; ?>"
+			type="<?php echo $type; ?>">
+	</video>
 
 <?php
 	}
