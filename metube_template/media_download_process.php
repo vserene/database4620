@@ -18,3 +18,4 @@ $queryresult = mysql_query($insertDownload)
 ?>
 
 window.open(canvas.toDataURL('<?php echo $filepath.$filename; ?>'));
+<a href="<?php echo $filepath.$filename; ?>"></a>
