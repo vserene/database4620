@@ -79,11 +79,28 @@
 	if (isset($_GET['del']))
 	{
 		$pid = $_GET['del'];
+		$pmedia_query = mysql_query("DELETE FROM playlist_media WHERE playlist_id = $pid");
 		$query = "DELETE FROM playlists WHERE id = '$pid'";
 		$result = mysql_query($query);
 		if ($result)
 		{
 			header("Location: user_channel.php");
+		}
+		else
+		{
+			die();
+		}
+	}
+
+	if (isset($_GET['rem']))
+	{
+		$playlist_id = $_GET['pid'];
+		$media_id = $_GET['rem'];
+
+		$rem_query = mysql_query("DELETE FROM playlist_media WHERE playlist_id = '$playlist_id' AND media_id = '$media_id'");
+		if ($rem_query)
+		{
+			header("Location: user_channel.php?show=$playlist_id");
 		}
 		else
 		{
@@ -117,11 +134,38 @@
 					$media_query = mysql_query("SELECT * FROM media WHERE mediaid = '" . $upload['mediaid'] . "'");
 					$media = mysql_fetch_assoc($media_query);
 					$media_output .= "<tr>"
-					. "<td><a href='user_channel.php?show=$pid'>" . $media['filename'] . "</a></td>"
+					. "<td><a href='media.php?id=" . $media['mediaid'] . "'>" . $media['filename'] . "</a></td>"
 					. "</tr>";
 				}
 
 				$media_output .= "</table>";
+			}
+		}
+		else
+		{
+			$media_output .= "<p>" . $playlist['name'] . "</p>";
+
+			$media_query = mysql_query("SELECT * FROM playlist_media WHERE playlist_id = '$pid'");
+			if (mysql_num_rows($media_query) > 0)
+			{
+				$media_output .= "<table style='width:75%'>";
+
+				while ($elem = mysql_fetch_assoc($media_query))
+				{
+					$mquery = mysql_query("SELECT * FROM media WHERE mediaid = '" . $elem['media_id'] . "'");
+					$media = mysql_fetch_assoc($mquery);
+
+					$media_output .= "<tr>"
+					. "<td><a href='media.php?id=" . $media['mediaid'] . "'>" . $media['filename'] . "</a></td>"
+					. "<td><a href='user_channel.php?pid=$pid&rem=" . $media['mediaid'] . "'>Remove</a></td>"
+					. "</tr>";
+				}
+
+				$media_output .= "</table>";
+			}
+			else
+			{
+				$media_output .= "<br><p>Currently empty</p>";
 			}
 		}
 	}

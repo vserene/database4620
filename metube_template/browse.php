@@ -143,7 +143,7 @@ body{
     	{
     		if($_GET['cat'] == "video")
     		{
-    			$query = "SELECT * FROM media WHERE type = 'video/x-ms-wmv'";
+    			$query = "SELECT * FROM media WHERE type = 'video/x-ms-wmv' OR type = 'video/quicktime'";
     		}
     		else if($_GET['cat'] == "image")
     		{
@@ -157,7 +157,7 @@ body{
     	   die ("Could not query the media table in the database: <br />". mysql_error());
     	}
     ?>
-	<table width="50%" cellpadding="0" cellspacing="0">
+	<table width="65%" cellpadding="0" cellspacing="0">
 		<?php
 			while ($result_row = mysql_fetch_row($result))
 			{
@@ -173,6 +173,9 @@ body{
             </td>
             <td>
             	<a href="<?php echo $result_row[2].$result_row[1];?>" target="_blank" onclick="javascript:saveDownload(<?php echo $result_row[0];?>);">Download</a>
+            </td>
+            <td>
+            	<a href="addplaylist.php?id=<?php echo $result_row[0]; ?>">Add to Playlist</a>
             </td>
 		</tr>
         <?php
