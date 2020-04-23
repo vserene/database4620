@@ -14,7 +14,7 @@ $mediaid=$_REQUEST['id'];
 //insert into upload table
 $insertDownload="insert into download(downloadid,username,mediaid) values(NULL,'$username','$mediaid')";
 $queryresult = mysql_query($insertDownload)
-	
+
 ?>
 
-
+window.open(canvas.toDataURL('<?php echo $filepath.$filename; ?>'));

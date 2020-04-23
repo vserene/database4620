@@ -98,13 +98,13 @@ if(isset($_GET['id'])) {
 	if(substr($type,0,5)=="image") //view image
 	{
 		echo "Viewing Picture:";
-		echo $result_row[2].$result_row[1];
+		echo $filename;
 		echo "<img src='".$filepath.$filename."'/>";
 	}
 	else //view movie
 	{
 ?>
-	<p>Viewing Video:<?php echo $result_row[2].$result_row[1];?></p>
+	<p><?php echo $filename;?></p>
 
     <video controls width="720"> 
 		<source src="<?php echo $filepath.$filename; ?>"
