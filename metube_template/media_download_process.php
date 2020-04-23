@@ -17,5 +17,7 @@ $queryresult = mysql_query($insertDownload)
 
 ?>
 
-window.open(canvas.toDataURL('<?php echo $filepath.$filename; ?>'));
-<a href="<?php echo $filepath.$filename; ?>"></a>
+let fileapth=<?php echo $filepath.$filename; ?>; 
+
+<!-- window.open(canvas.toDataURL('<?php echo $filepath.$filename; ?>')); -->
+<form method="get" action="$filepath"></form>
