@@ -119,6 +119,7 @@ if(isset($_GET['id'])) {
 	<video controls width="250">
 		<source src="<?php echo $result_row[2].$result_row[1];  ?>"
 			type="video/wmv">
+	</video>
 
 <?php
 	}
